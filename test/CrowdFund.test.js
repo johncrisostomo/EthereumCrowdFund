@@ -36,4 +36,20 @@ describe('CrowdFunds', () => {
         assert.ok(factory.options.address);
         assert.ok(crowdFund.options.address);
     });
+
+    it('marks caller as the crowd fund manager', async () => {
+        const manager = await crowdFund.methods.manager().call();
+        assert.equal(manager, accounts[0]);
+    });
+
+    it('allows people to contribute money and marks them as approvers', async () => {
+        await crowdFund.methods
+            .contribute()
+            .send({ value: '200', from: accounts[1] });
+        const isContributor = await crowdFund.methods
+            .approvers(accounts[1])
+            .call();
+
+        assert(isContributor);
+    });
 });
