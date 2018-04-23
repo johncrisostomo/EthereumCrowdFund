@@ -64,4 +64,42 @@ describe('CrowdFunds', () => {
             assert(err);
         }
     });
+
+    it('allows a manager to make a payment request', async () => {
+        await crowdFund.methods
+            .createRequest('Buy batteries', '100', accounts[1])
+            .send({
+                from: accounts[0],
+                gas: '1000000'
+            });
+
+        const request = await crowdFund.methods.requests(0).call();
+
+        assert(request.description, 'Buy batteries');
+    });
+
+    it('processes requests', async () => {
+        await crowdFund.methods.contribute().send({
+            from: accounts[0],
+            value: web3.utils.toWei('10', 'ether')
+        });
+
+        await crowdFund.methods
+            .createRequest('a', web3.utils.toWei('5', 'ether'), accounts[1])
+            .send({ from: accounts[0], gas: '1000000' });
+
+        await crowdFund.methods
+            .approveRequest(0)
+            .send({ from: accounts[0], gas: '1000000' });
+
+        await crowdFund.methods
+            .finalizeRequest(0)
+            .send({ from: accounts[0], gas: '1000000' });
+
+        let balance = await web3.eth.getBalance(accounts[1]);
+        balance = web3.utils.fromWei(balance, 'ether');
+        balance = parseFloat(balance);
+
+        assert(104.9 < balance);
+    });
 });
