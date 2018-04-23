@@ -52,4 +52,16 @@ describe('CrowdFunds', () => {
 
         assert(isContributor);
     });
+
+    it('requires a minimum contribution', async () => {
+        try {
+            await crowdFund.methods.contribute().send({
+                values: '90',
+                from: accounts[1]
+            });
+            assert(false);
+        } catch (err) {
+            assert(err);
+        }
+    });
 });
