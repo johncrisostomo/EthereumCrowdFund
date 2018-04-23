@@ -1,26 +1,27 @@
 {
-  "name": "ethereumcrowdfund",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "compile": "node ethereum/compile.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/johncrisostomo/EthereumCrowdFund.git"
-  },
-  "author": "John Crisostomo",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/johncrisostomo/EthereumCrowdFund/issues"
-  },
-  "homepage": "https://github.com/johncrisostomo/EthereumCrowdFund#readme",
-  "dependencies": {
-    "fs-extra": "^5.0.0",
-    "ganache-cli": "^6.1.0",
-    "mocha": "^5.1.1",
-    "solc": "^0.4.23",
-    "web3": "^1.0.0-beta.26"
-  }
+    "name": "ethereumcrowdfund",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "compile": "node ethereum/compile.js",
+        "test": "mocha"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/johncrisostomo/EthereumCrowdFund.git"
+    },
+    "author": "John Crisostomo",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/johncrisostomo/EthereumCrowdFund/issues"
+    },
+    "homepage": "https://github.com/johncrisostomo/EthereumCrowdFund#readme",
+    "dependencies": {
+        "fs-extra": "^5.0.0",
+        "ganache-cli": "^6.1.0",
+        "mocha": "^5.1.1",
+        "solc": "^0.4.23",
+        "web3": "^1.0.0-beta.26"
+    }
 }
