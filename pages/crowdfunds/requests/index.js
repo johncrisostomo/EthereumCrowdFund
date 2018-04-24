@@ -3,10 +3,23 @@ import { Button } from 'semantic-ui-react';
 import { Link } from '../../../routes';
 import Layout from '../../../components/layout';
 
+import crowdfundHelper from '../../../ethereum/crowdfund';
+
 class RequestIndex extends Component {
     static async getInitialProps(props) {
         const { address } = props.query;
-        return { address };
+        const crowdfund = crowdfundHelper(address);
+        const requestsCount = await crowdfund.methods.getRequestsCount().call();
+
+        const requests = await Promise.all(
+            Array(parseInt(requestsCount))
+                .fill()
+                .map((element, index) => {
+                    return crowdfund.methods.requests(index).call();
+                })
+        );
+
+        return { address, requests, requestsCount };
     }
 
     render() {
