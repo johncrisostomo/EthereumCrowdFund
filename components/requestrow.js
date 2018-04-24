@@ -8,7 +8,8 @@ class RequestRow extends Component {
 
         const {
             id,
-            request: { description, value, recipient, approvalCount }
+            request: { description, value, recipient, approvalCount },
+            approversCount
         } = this.props;
 
         return (
@@ -17,7 +18,9 @@ class RequestRow extends Component {
                 <Cell>{description}</Cell>
                 <Cell>{web3.utils.fromWei(value, 'ether') + 'ETH'}</Cell>
                 <Cell>{recipient}</Cell>
-                <Cell>{approvalCount}</Cell>
+                <Cell>
+                    {approvalCount} / {approversCount}
+                </Cell>
                 <Cell>Click me</Cell>
                 <Cell>Click me</Cell>
             </Row>

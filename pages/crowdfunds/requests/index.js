@@ -12,6 +12,7 @@ class RequestIndex extends Component {
         const { address } = props.query;
         const crowdfund = crowdfundHelper(address);
         const requestsCount = await crowdfund.methods.getRequestsCount().call();
+        const approversCount = await crowdfund.methods.approversCount().call();
 
         const requests = await Promise.all(
             Array(parseInt(requestsCount))
@@ -21,7 +22,7 @@ class RequestIndex extends Component {
                 })
         );
 
-        return { address, requests, requestsCount };
+        return { address, requests, requestsCount, approversCount };
     }
 
     renderRow = () => {
@@ -32,6 +33,7 @@ class RequestIndex extends Component {
                     id={index}
                     key={index}
                     address={this.props.address}
+                    approversCount={this.props.approversCount}
                 />
             );
         });
