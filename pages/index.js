@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Card } from 'semantic-ui-react';
+
+import Head from '../components/head';
 import factory from '../ethereum/factory';
 
 class CrowdFundIndex extends Component {
@@ -7,10 +10,24 @@ class CrowdFundIndex extends Component {
         return { crowdFunds };
     }
 
-    render() {
+    renderCrowdFund() {
         const { crowdFunds } = this.props;
+        const items = crowdFunds.map(address => ({
+            header: address,
+            description: <a>View Crowd Fund</a>,
+            fluid: true
+        }));
 
-        return <div>{crowdFunds[0]}</div>;
+        return <Card.Group items={items} />;
+    }
+
+    render() {
+        return (
+            <div>
+                <Head />
+                {this.renderCrowdFund()}
+            </div>
+        );
     }
 }
 
