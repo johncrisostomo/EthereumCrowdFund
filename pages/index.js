@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react';
 
-import Head from '../components/head';
+import Layout from '../components/layout';
 import factory from '../ethereum/factory';
 
 class CrowdFundIndex extends Component {
@@ -23,11 +23,13 @@ class CrowdFundIndex extends Component {
 
     render() {
         return (
-            <div>
-                <Head />
-                {this.renderCrowdFund()}
-                <Button content="Add CrowdFund" icon="add" primary />
-            </div>
+            <Layout>
+                <div>
+                    <h3>Open CrowdFunds</h3>
+                    {this.renderCrowdFund()}
+                    <Button content="Add CrowdFund" icon="add" primary />
+                </div>
+            </Layout>
         );
     }
 }
