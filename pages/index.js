@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 
 import Head from '../components/head';
 import factory from '../ethereum/factory';
@@ -26,6 +26,7 @@ class CrowdFundIndex extends Component {
             <div>
                 <Head />
                 {this.renderCrowdFund()}
+                <Button content="Add CrowdFund" icon="add" primary />
             </div>
         );
     }
