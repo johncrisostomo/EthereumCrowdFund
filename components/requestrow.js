@@ -36,7 +36,7 @@ class RequestRow extends Component {
             approversCount
         } = this.props;
 
-        const readyToFinalize = request.approvalCount > approversCount / 2;
+        const readyToFinalize = approvalCount > approversCount / 2;
 
         return (
             <Row disabled={complete} positive={readyToFinalize && !complete}>
