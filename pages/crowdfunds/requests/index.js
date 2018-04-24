@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Table, Button } from 'semantic-ui-react';
 import { Link } from '../../../routes';
 import Layout from '../../../components/layout';
+
+import RequestRow from '../../../components/requestrow';
 
 import crowdfundHelper from '../../../ethereum/crowdfund';
 
@@ -22,8 +24,21 @@ class RequestIndex extends Component {
         return { address, requests, requestsCount };
     }
 
+    renderRow = () => {
+        return this.props.requests.map((request, index) => {
+            return (
+                <RequestRow
+                    request={request}
+                    key={index}
+                    address={this.props.address}
+                />
+            );
+        });
+    };
+
     render() {
         const { address } = this.props;
+        const { Header, Row, HeaderCell, Body } = Table;
 
         return (
             <Layout>
@@ -33,6 +48,21 @@ class RequestIndex extends Component {
                         <Button primary>Add Request</Button>
                     </a>
                 </Link>
+                <Table>
+                    <Header>
+                        <Row>
+                            <HeaderCell>ID</HeaderCell>
+                            <HeaderCell>Description</HeaderCell>
+                            <HeaderCell>Amount</HeaderCell>
+                            <HeaderCell>Recipient</HeaderCell>
+                            <HeaderCell>Approval Count</HeaderCell>
+                            <HeaderCell>Approve</HeaderCell>
+                            <HeaderCell>Finalize</HeaderCell>
+                        </Row>
+                    </Header>
+
+                    <Body>{this.renderRow()}</Body>
+                </Table>
             </Layout>
         );
     }
