@@ -17,7 +17,8 @@ class CrowdFundView extends Component {
             balance: summary[1],
             requestsCount: summary[2],
             approversCount: summary[3],
-            manager: summary[4]
+            manager: summary[4],
+            address: props.query.address
         };
     }
 
@@ -67,13 +68,14 @@ class CrowdFundView extends Component {
     };
 
     render() {
+        const { address } = this.props;
         return (
             <Layout>
                 <h3>CrowdFund Details</h3>
                 <Grid>
                     <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
                     <Grid.Column width={6}>
-                        <ContributeForm />
+                        <ContributeForm address={address} />
                     </Grid.Column>
                 </Grid>
             </Layout>
