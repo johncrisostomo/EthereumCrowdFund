@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 
 import Layout from '../../components/layout';
+import ContributeForm from '../../components/contributeform';
 
 import web3 from '../../ethereum/web3';
 import crowdFundHelper from '../../ethereum/crowdfund';
@@ -70,6 +71,7 @@ class CrowdFundView extends Component {
             <Layout>
                 <h3>CrowdFund Details</h3>
                 {this.renderCards()}
+                <ContributeForm />
             </Layout>
         );
     }
