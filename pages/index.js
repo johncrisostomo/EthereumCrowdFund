@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react';
 
+import { Link } from '../routes';
 import Layout from '../components/layout';
 import factory from '../ethereum/factory';
 
@@ -14,7 +15,11 @@ class CrowdFundIndex extends Component {
         const { crowdFunds } = this.props;
         const items = crowdFunds.map(address => ({
             header: address,
-            description: <a>View Crowd Fund</a>,
+            description: (
+                <Link route={`/crowdfunds/${address}`}>
+                    <a>View Crowd Fund</a>
+                </Link>
+            ),
             fluid: true
         }));
 
@@ -27,12 +32,16 @@ class CrowdFundIndex extends Component {
                 <div>
                     <h3>Open CrowdFunds</h3>
 
-                    <Button
-                        floated="right"
-                        content="Add CrowdFund"
-                        icon="add"
-                        primary
-                    />
+                    <Link route="/crowdfunds/new">
+                        <a>
+                            <Button
+                                floated="right"
+                                content="Add CrowdFund"
+                                icon="add"
+                                primary
+                            />
+                        </a>
+                    </Link>
 
                     {this.renderCrowdFund()}
                 </div>
