@@ -60,3 +60,5 @@ typings/
 build/
 
 settings.json
+
+.next
