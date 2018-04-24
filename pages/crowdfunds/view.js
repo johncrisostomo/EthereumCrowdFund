@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Card, Grid } from 'semantic-ui-react';
+import { Card, Grid, Button } from 'semantic-ui-react';
 
+import { Link } from '../../routes';
 import Layout from '../../components/layout';
 import ContributeForm from '../../components/contributeform';
 
@@ -73,10 +74,23 @@ class CrowdFundView extends Component {
             <Layout>
                 <h3>CrowdFund Details</h3>
                 <Grid>
-                    <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
-                    <Grid.Column width={6}>
-                        <ContributeForm address={address} />
-                    </Grid.Column>
+                    <Grid.Row>
+                        <Grid.Column width={10}>
+                            {this.renderCards()}
+                        </Grid.Column>
+                        <Grid.Column width={6}>
+                            <ContributeForm address={address} />
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Link route={`/crowdfunds/${address}/requests`}>
+                                <a>
+                                    <Button primary>View Requests</Button>
+                                </a>
+                            </Link>
+                        </Grid.Column>
+                    </Grid.Row>
                 </Grid>
             </Layout>
         );
