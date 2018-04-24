@@ -3,6 +3,7 @@ import { Form, Input, Button, Message } from 'semantic-ui-react';
 import Layout from '../../components/layout';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
+import { Link, Router } from '../../routes';
 
 class CrowdFundsNew extends Component {
     state = { minimumContribution: '', errorMessage: '', isLoading: false };
@@ -18,6 +19,8 @@ class CrowdFundsNew extends Component {
             await factory.methods
                 .createCrowdFund(minimumContribution)
                 .send({ from: accounts[0] });
+
+            Router.pushRoute('/');
         } catch (err) {
             this.setState({ errorMessage: err.message });
         }
