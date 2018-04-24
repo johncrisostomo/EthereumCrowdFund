@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Message } from 'semantic-ui-react';
+import { Router } from '../routes';
 
 import crowdfundHelper from '../ethereum/crowdfund';
 import web3 from '../ethereum/web3';
 
 class ContributeForm extends Component {
-    state = { value: '', isLoading: false };
+    state = { value: '', isLoading: false, errorMessage: '' };
 
     onSubmit = async event => {
         event.preventDefault();
@@ -13,7 +14,7 @@ class ContributeForm extends Component {
         const { address } = this.props;
         const { value } = this.state;
 
-        this.setState({ isLoading: true });
+        this.setState({ isLoading: true, errorMessage: '' });
 
         const crowdfund = crowdfundHelper(address);
 
@@ -23,14 +24,18 @@ class ContributeForm extends Component {
                 from: accounts[0],
                 value: web3.utils.toWei(this.state.value, 'ether')
             });
-        } catch (err) {}
+            Router.replaceRoute(`/crowdfunds/${address}`);
+        } catch (err) {
+            this.setState({ errorMessage: err.message });
+        }
 
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false, value: '' });
     };
 
     render() {
+        const { errorMessage, isLoading } = this.state;
         return (
-            <Form onSubmit={this.onSubmit}>
+            <Form onSubmit={this.onSubmit} error={!!errorMessage}>
                 <Form.Field>
                     <label>Amount to contribute</label>
                     <Input
@@ -40,10 +45,18 @@ class ContributeForm extends Component {
                         onChange={event =>
                             this.setState({ value: event.target.value })
                         }
-                        loading={this.state.isLoading}
                     />
                 </Form.Field>
-                <Button primary>Contribute</Button>
+
+                <Message
+                    error
+                    header="This is embarassing."
+                    content={errorMessage}
+                />
+
+                <Button loading={isLoading} primary>
+                    Contribute
+                </Button>
             </Form>
         );
     }
