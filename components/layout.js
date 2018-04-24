@@ -1,13 +1,16 @@
 import React from 'react';
+import { Container } from 'semantic-ui-react';
 import Head from './head';
+import Header from './header';
 
 export default props => {
     return (
         <div>
             <Head />
-            <h1>I am a header</h1>
-            {props.children}
-            <h1>I am a footer</h1>
+            <Container>
+                <Header />
+                {props.children}
+            </Container>
         </div>
     );
 };

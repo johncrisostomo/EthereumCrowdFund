@@ -26,8 +26,15 @@ class CrowdFundIndex extends Component {
             <Layout>
                 <div>
                     <h3>Open CrowdFunds</h3>
+
+                    <Button
+                        floated="right"
+                        content="Add CrowdFund"
+                        icon="add"
+                        primary
+                    />
+
                     {this.renderCrowdFund()}
-                    <Button content="Add CrowdFund" icon="add" primary />
                 </div>
             </Layout>
         );
