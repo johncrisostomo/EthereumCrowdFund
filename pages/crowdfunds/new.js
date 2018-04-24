@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
 import Layout from '../../components/layout';
+import factory from '../../ethereum/factory';
+import web3 from '../../ethereum/web3';
 
 class CrowdFundsNew extends Component {
+    state = { minimumContribution: '' };
+
+    onSubmit = async event => {
+        event.preventDefault();
+        const { minimumContribution } = this.state;
+        const accounts = await web3.eth.getAccounts();
+        await factory.methods
+            .createCrowdFund(minimumContribution)
+            .send({ from: accounts[0] });
+    };
+
     render() {
         return (
             <Layout>
                 <h3>Create a new CrowdFund</h3>
-                <Form>
+                <Form onSubmit={this.onSubmit}>
                     <Form.Field>
                         <label>Minimum Contribution</label>
-                        <Input label="wei" labelPosition="right" />
+                        <Input
+                            label="wei"
+                            labelPosition="right"
+                            value={this.state.minimumContribution}
+                            onChange={event =>
+                                this.setState({
+                                    minimumContribution: event.target.value
+                                })
+                            }
+                        />
                     </Form.Field>
                     <Button content="Create" primary />
                 </Form>
